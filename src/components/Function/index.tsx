@@ -6,7 +6,7 @@ import { functions } from '../../utils';
 const component = (props: FunctionInterface) => {
   const childrenWithProps = Children.map(
     props.children,
-    (element: ReactElement) => cloneElement(element, { ...functions(props) }),
+    (element: ReactElement) => cloneElement(element, { ...functions(props) })
   );
 
   return <Fragment>{childrenWithProps}</Fragment>;

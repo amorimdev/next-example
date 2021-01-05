@@ -6,7 +6,7 @@ import { ComponentInterface } from '../interfaces';
 import { fetcher } from '../utils';
 
 const recursiveComponentsGenerate = (
-  components: ComponentInterface[],
+  components: ComponentInterface[]
 ): ComponentInterface[] =>
   components.map((item: ComponentInterface) => ({
     ...item,
@@ -20,12 +20,12 @@ const recursiveComponentsRender = (components: ComponentInterface[]) =>
   components.map(
     (
       { Component, name, props, childrens }: ComponentInterface,
-      index: number,
+      index: number
     ) => (
       <Component key={name + index} {...props}>
         {childrens && recursiveComponentsRender(childrens)}
       </Component>
-    ),
+    )
   );
 
 const component = () => {
@@ -36,7 +36,7 @@ const component = () => {
   if (!data) return <div>Loading...</div>;
 
   const components: ComponentInterface[] = recursiveComponentsGenerate(
-    data.components,
+    data.components
   );
 
   return <div>{recursiveComponentsRender(components)}</div>;

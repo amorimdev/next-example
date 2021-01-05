@@ -16,7 +16,7 @@ const component = (props: CounterPropsInterface) => {
 
   const childrenWithProps = Children.map(
     props.children,
-    (element: ReactElement) => cloneElement(element, { addCounter, subCounter }),
+    (element: ReactElement) => cloneElement(element, { addCounter, subCounter })
   );
 
   return (
