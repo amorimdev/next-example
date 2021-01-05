@@ -1,18 +1,12 @@
 import { Fragment } from 'react';
 
-import { ButtonPropsInterface, FunctionPropsInterface } from '../../interfaces';
+import { ButtonPropsInterface } from '../../interfaces';
 import Function from '../Function';
 
 const component = (props: ButtonPropsInterface) => {
   return (
     <Fragment>
-      <Function
-        {...props}
-        functions={props.functions.map((item: FunctionPropsInterface) => ({
-          ...item,
-          func: props[item.bind],
-        }))}
-      >
+      <Function {...props}>
         <button>{props.text}</button>
       </Function>
       {props.children}
