@@ -19,6 +19,9 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         childrens: [
           {
             name: 'Counter',
+            props: {
+              counter: 0,
+            },
             childrens: [
               {
                 name: 'Button',

@@ -1,19 +1,18 @@
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
+import swr from 'swr';
 import dynamic from 'next/dynamic';
 
 import { ComponentInterface } from '../interfaces';
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { fetcher } from '../utils';
 
 const recursiveComponentsGenerate = (
-  components: ComponentInterface[]
+  components: ComponentInterface[],
 ): ComponentInterface[] =>
-  components.map((component: ComponentInterface) => ({
-    ...component,
-    Component: dynamic(() => import(`../components/${component.name}`)),
-    ...(component.childrens && {
-      childrens: recursiveComponentsGenerate(component.childrens),
+  components.map((item: ComponentInterface) => ({
+    ...item,
+    Component: dynamic(() => import(`../components/${item.name}`)),
+    ...(item.childrens && {
+      childrens: recursiveComponentsGenerate(item.childrens),
     }),
   }));
 
@@ -21,26 +20,26 @@ const recursiveComponentsRender = (components: ComponentInterface[]) =>
   components.map(
     (
       { Component, name, props, childrens }: ComponentInterface,
-      index: number
+      index: number,
     ) => (
       <Component key={name + index} {...props}>
         {childrens && recursiveComponentsRender(childrens)}
       </Component>
-    )
+    ),
   );
 
-const Shell = () => {
+const component = () => {
   const router = useRouter();
-  const { data, error } = useSWR(`/api${router.pathname}`, fetcher);
+  const { data, error } = swr(`/api${router.pathname}`, fetcher);
 
   if (error) return <div>Failed to load</div>;
   if (!data) return <div>Loading...</div>;
 
   const components: ComponentInterface[] = recursiveComponentsGenerate(
-    data.components
+    data.components,
   );
 
   return <div>{recursiveComponentsRender(components)}</div>;
 };
 
-export default Shell;
+export default component;
