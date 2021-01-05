@@ -4,23 +4,27 @@
   "description": "Nextjs example with typescript",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/next/dist/bin/next dev",
-    "build": "./node_modules/next/dist/bin/next build",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
     "prettier:base": "prettier --parser typescript --single-quote",
     "prettier:check": "npm run prettier:base -- --list-different \"src/**/*.{ts,tsx}\"",
     "prettier:write": "npm run prettier:base -- --write \"src/**/*.{ts,tsx}\"",
-    "tslint": "./node_modules/tslint/bin/tslint --project tsconfig.json --fix"
+    "tslint": "tslint --project tsconfig.json --fix"
   },
   "keywords": [],
   "author": "Jhonatan Amorim <amorim.dev@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.11.1",
+    "lodash": "^4.17.20",
     "next": "^10.0.4",
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "swr": "^0.3.11"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.166",
     "@types/node": "^14.14.17",
     "@types/react": "^17.0.0",
     "husky": "^4.3.6",

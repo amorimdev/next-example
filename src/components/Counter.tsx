@@ -1,17 +1,26 @@
-import { useState } from 'react';
+import {
+  ComponentType,
+  useState,
+  Children,
+  cloneElement,
+  Fragment,
+} from 'react';
 
-const Counter = () => {
+const Counter = ({ children }: { children: ComponentType[] }) => {
   const [counter, setCounter] = useState(0);
 
   const addCounter = () => setCounter(counter + 1);
   const subCounter = () => setCounter(counter - 1);
 
+  const childrenWithProps = Children.map(children, (element) =>
+    cloneElement(element, { addCounter, subCounter })
+  );
+
   return (
-    <div>
+    <Fragment>
       <div>{counter}</div>
-      <button onClick={addCounter}>Add</button>
-      <button onClick={subCounter}>Sub</button>
-    </div>
+      {childrenWithProps}
+    </Fragment>
   );
 };
 
